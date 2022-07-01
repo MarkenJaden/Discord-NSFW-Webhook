@@ -17,9 +17,11 @@ foreach (var (webhook, booru, tags, interval) in tasks)
 #pragma warning restore CS4014
 }
 
-while (true) ;
+while (true)
+{
+}
 
-    async Task RandomBooruPicToWebhookTask(DiscordWebhookClient webhook, ABooru booru, string[] tags, TimeSpan interval, CancellationToken cancellationToken)
+async Task RandomBooruPicToWebhookTask(DiscordWebhookClient webhook, ABooru booru, string[] tags, TimeSpan interval, CancellationToken cancellationToken)
 {
     while (true)
     {
