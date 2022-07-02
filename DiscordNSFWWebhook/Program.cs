@@ -14,6 +14,7 @@ foreach (var (webhook, booru, tags, interval) in tasks)
 {
 #pragma warning disable CS4014
     RandomBooruPicToWebhookTask(webhook, booru, tags, interval, CancellationToken.None);
+    Console.WriteLine(webhook);
 #pragma warning restore CS4014
 }
 
