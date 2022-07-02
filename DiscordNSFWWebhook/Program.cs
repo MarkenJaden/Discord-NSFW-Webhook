@@ -27,7 +27,6 @@ async Task RandomBooruPicToWebhookTask(DiscordWebhookClient webhook, ABooru boor
     while (true)
     {
         var pic = await booru.GetRandomPostAsync(tags);
-        Console.WriteLine(pic);
         await webhook.SendMessageAsync(pic.FileUrl.AbsoluteUri);
         await Task.Delay(interval, cancellationToken);
     }
