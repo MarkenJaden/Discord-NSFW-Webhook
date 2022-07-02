@@ -14,7 +14,6 @@ foreach (var (webhook, booru, tags, interval) in tasks)
 {
 #pragma warning disable CS4014
     RandomBooruPicToWebhookTask(webhook, booru, tags, interval, CancellationToken.None);
-    Console.WriteLine(webhook);
 #pragma warning restore CS4014
 }
 
@@ -27,6 +26,7 @@ async Task RandomBooruPicToWebhookTask(DiscordWebhookClient webhook, ABooru boor
     while (true)
     {
         var pic = await booru.GetRandomPostAsync(tags);
+        Console.WriteLine(pic);
         await webhook.SendMessageAsync(pic.FileUrl.AbsoluteUri);
         await Task.Delay(interval, cancellationToken);
     }
