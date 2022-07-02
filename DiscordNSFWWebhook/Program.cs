@@ -7,14 +7,14 @@ var webhooks = JsonConvert.DeserializeObject<List<Webhooks>>(File.ReadAllText("w
 
 foreach (var webhook in webhooks)
 {
-    ABooru booru = webhook.booru switch
+    ABooru booru = webhook.Booru switch
     {
         "rule34" => new Rule34(),
         "safebooru" => new Safebooru(),
         _ => new Rule34()
     };
 #pragma warning disable CS4014
-    RandomBooruPicToWebhookTask(new(webhook.url), booru, webhook.tags.ToArray(), TimeSpan.FromSeconds(webhook.interval), CancellationToken.None);
+    RandomBooruPicToWebhookTask(new(webhook.Url), booru, webhook.Tags.ToArray(), TimeSpan.FromSeconds(webhook.Interval), CancellationToken.None);
 #pragma warning restore CS4014
 }
 

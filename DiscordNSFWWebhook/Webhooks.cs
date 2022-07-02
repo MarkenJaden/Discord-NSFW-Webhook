@@ -2,17 +2,17 @@
 {
     public class Webhooks
     {
-        public string url { get; set; }
-        public string booru { get; set; }
-        public string[] tags { get; set; }
-        public int interval { get; set; }
+        public string Url { get; set; }
+        public string Booru { get; set; }
+        public string[] Tags { get; set; }
+        public int Interval { get; set; }
 
         public Webhooks(string url, string booru, string[] tags, int interval)
         {
-            this.url = url;
-            this.booru = booru;
-            this.tags = tags;
-            this.interval = interval;
+            Url = url;
+            Booru = booru;
+            Tags = tags;
+            Interval = interval;
         }
     }
 }
