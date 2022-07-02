@@ -1,19 +1,20 @@
 ﻿using BooruSharp.Booru;
 using Discord.Webhook;
+using DiscordNSFWWebhook;
+using Newtonsoft.Json;
 
-var lines = File.ReadAllLines("webhooks.txt");
+var webhooks = JsonConvert.DeserializeObject<List<Webhooks>>(File.ReadAllText("webhooks.json"));
 
-var tasks = new List<(DiscordWebhookClient webhook, ABooru booru, string[] tags, TimeSpan interval)>
+foreach (var webhook in webhooks)
 {
-    (new(lines[0]), new Rule34(), new []{ "cat_ears" }, TimeSpan.FromSeconds(600)),
-    (new(lines[1]), new Rule34(), Array.Empty<string>(), TimeSpan.FromSeconds(600)),
-    (new(lines[2]), new Safebooru(), Array.Empty<string>(), TimeSpan.FromSeconds(600)),
-};
-
-foreach (var (webhook, booru, tags, interval) in tasks)
-{
+    ABooru booru = webhook.booru switch
+    {
+        "rule34" => new Rule34(),
+        "safebooru" => new Safebooru(),
+        _ => new Rule34()
+    };
 #pragma warning disable CS4014
-    RandomBooruPicToWebhookTask(webhook, booru, tags, interval, CancellationToken.None);
+    RandomBooruPicToWebhookTask(new(webhook.url), booru, webhook.tags.ToArray(), TimeSpan.FromSeconds(webhook.interval), CancellationToken.None);
 #pragma warning restore CS4014
 }
 
